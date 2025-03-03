@@ -2,7 +2,7 @@ import { type Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
-  darkMode: "class", // Sprawdź, czy masz to ustawione
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -32,7 +32,16 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [
+    tailwindcssAnimate,
+    function ({ addComponents }) {
+      addComponents({
+        ".menu-active": {
+          "@apply after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-full after:h-[2px] after:bg-sky-300 after:scale-x-0 after:transition-transform after:duration-500 group-hover:after:scale-x-100": {},
+        },
+      });
+    },
+  ],
 };
 
 export default config;
