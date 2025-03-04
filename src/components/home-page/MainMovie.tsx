@@ -36,10 +36,10 @@ const MainMovie: React.FC = () => {
         style={{ backgroundImage: `url(${movie.backdrop_path})` }}
       ></div>
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
-      <div className="relative z-10 p-10 flex flex-col justify-between items-start h-full text-white max-w-[500px]">
+      <div className="relative z-10 p-10 flex flex-col justify-between items-start h-full text-white max-w-[600px]">
         <div>
         </div>
-            <div>
+            <div className="ml-16">
                 <h1 className="text-5xl font-bold">{movie.title}</h1>
                 <p className="mt-4 text-lg leading-relaxed">{movie.overview}</p>
                 <div className="mt-2 flex items-center gap-2">
