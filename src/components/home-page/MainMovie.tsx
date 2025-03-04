@@ -26,11 +26,11 @@ const MainMovie: React.FC = () => {
 
  
   if (!movie) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // TODO: dodać ładowanie i dodać wyświetlenie szczegolow filmow
   }
 
   return (
-    <div className="relative w-full h-[88vh] rounded-b-3xl">
+    <div className="relative w-full h-[88vh]">
       <div
         className="absolute inset-0 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${movie.backdrop_path})` }}
