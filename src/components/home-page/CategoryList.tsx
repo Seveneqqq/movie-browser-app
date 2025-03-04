@@ -34,7 +34,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
 
   return (
     <div className='mt-5 overflow-x-hidden'>
-      <h2 className='text-2xl mb-5 px-25 flex items-center'>{categoryName}</h2>
+      <h2 className='text-2xl mb-5 md:px-25 px-10 flex items-center'>{categoryName}</h2>
       {loading && <p>Ładowanie...</p>}
       {error && <p>{error}</p>}
 
@@ -45,15 +45,15 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
           }}
           className="w-full max-w-full relative"
         >
-          <CarouselContent className='ml-20'>
+          <CarouselContent className='md:ml-20 ml-0 gap-1'>
             {movies.map((movie: any) => (
-              <CarouselItem key={movie.id} className="md:basis-1/5 lg:basis-1/6">
+              <CarouselItem key={movie.id} className="md:basis-1/5 basis-1/3 lg:basis-1/6">
                 <div
                   className="relative group cursor-pointer"
                   onMouseEnter={() => setHoveredMovie(movie)}
                   onMouseLeave={() => setHoveredMovie(null)}
                 >
-                  <div className="overflow-hidden rounded-md shadow-md relative">
+                  <div className="overflow-hidden rounded-2xl shadow-md relative">
                   <img
                       src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                       alt={movie.title}
