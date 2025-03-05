@@ -102,7 +102,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
             </SelectTrigger>
             <SelectContent className='bg-[#0B0D0D] text-[#e3eaeb] font-sans'>
               {uniqueGenres.map(genre => (
-                <SelectItem key={genre} value={genre}>
+                <SelectItem key={genre} value={genre} className='hover:bg-gray-800'>
                   {genre}
                 </SelectItem>
               ))}
@@ -115,7 +115,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
             </SelectTrigger>
             <SelectContent className='bg-[#0B0D0D] text-[#e3eaeb] font-sans'>
               {uniqueYears.map(year => (
-                <SelectItem key={year} value={year}>
+                <SelectItem key={year} value={year} className='hover:bg-gray-800'>
                   {year}
                 </SelectItem>
               ))}
@@ -138,6 +138,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
                   max={10}
                   step={0.5}
                   onValueChange={setRatingFilter}
+                  className='bg-slate-800'
                 />
                 <div className="flex justify-between mt-2 text-sm">
                   <span>{ratingFilter[0]}</span>
