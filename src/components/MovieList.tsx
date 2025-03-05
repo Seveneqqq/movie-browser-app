@@ -31,7 +31,7 @@ interface MovieListProps {
   filters?: boolean;
 }
 
-const GENRE_MAP: {[key: number]: string} = {
+const GENRE_MAP: { [key: number]: string } = {
   28: 'Action',
   12: 'Adventure',
   16: 'Animation',
@@ -58,6 +58,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [ratingFilter, setRatingFilter] = useState<number[]>([0, 10]);
+  const [resetKey, setResetKey] = useState<number>(0); 
 
   const uniqueYears = [...new Set(
     movies.map(movie => 
@@ -83,13 +84,19 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
   
     return posterFilter && genreFilter && yearFilter && ratingMatches;
   });
-  
+
+  const clearFilters = () => {
+    setSelectedGenre(null);
+    setSelectedYear(null);
+    setRatingFilter([0, 10]);
+    setResetKey(prevKey => prevKey + 1); 
+  };
 
   return (
     <div className='px-4 md:px-20'>
       {filters && (
-        <div className='flex flex-wrap gap-4 mb-6 items-center '>
-          <Select onValueChange={setSelectedGenre}>
+        <div className='flex flex-wrap gap-4 mb-6 items-center'>
+          <Select key={`genre-${resetKey}`} onValueChange={setSelectedGenre}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Genre" />
             </SelectTrigger>
@@ -102,8 +109,8 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
             </SelectContent>
           </Select>
 
-          <Select onValueChange={setSelectedYear}>
-            <SelectTrigger className="w-[180px] ">
+          <Select key={`year-${resetKey}`} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Year" />
             </SelectTrigger>
             <SelectContent className='bg-[#0B0D0D] text-[#e3eaeb] font-sans'>
@@ -125,6 +132,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
             <PopoverContent className="w-[250px] space-y-4 bg-[#0B0D0D] text-[#e3eaeb] font-sans">
               <div>
                 <Slider
+                  key={`rating-${resetKey}`}
                   defaultValue={[0, 10]}
                   min={0}
                   max={10}
@@ -138,6 +146,10 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
               </div>
             </PopoverContent>
           </Popover>
+
+          <Button variant="outline" className="w-[180px]" onClick={clearFilters}>
+            Clear Filters
+          </Button>
         </div>
       )}
 
@@ -146,10 +158,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
       ) : (
         <div className='grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
           {filteredMovies.map((movie: MovieData) => (
-            <div
-              key={movie.id}
-              className="w-full aspect-[2/3]"
-            >
+            <div key={movie.id} className="w-full aspect-[2/3]">
               <div
                 className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg h-full"
                 onMouseEnter={() => setHoveredMovie(movie)}
@@ -162,7 +171,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
                     className="w-full h-full object-cover transition-transform transform group-hover:scale-105"
                   />
                 </div>
-                
+
                 {hoveredMovie?.id === movie.id && (
                   <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white text-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <h3 className="text-lg font-semibold mb-2 line-clamp-2">{movie.title}</h3>
