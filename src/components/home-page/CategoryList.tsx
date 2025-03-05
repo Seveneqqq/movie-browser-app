@@ -75,9 +75,9 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
                         <h3 className="text-xl font-semibold">{movie.title}</h3>
                         <p className="my-2 text-sm">{movie.overview}</p>
                         <div className="flex justify-between items-center w-full px-4">
-                          <span className="text-yellow-500 text-sm">Rating: {Math.round(movie.vote_average)}/10</span>
+                          <span className="text-yellow-500 text-sm">Rating: {movie.vote_average.toFixed(1)}/10</span>
                           <div className="space-x-2">
-                            <button className="bg-gray-500 px-4 py-2 rounded-md text-white text-sm">Details</button>
+                            <button className="bg-purple-600 px-6 py-3 rounded-md text-white text-sm">Details</button>
                           </div>
                         </div>
                       </div>

@@ -43,7 +43,7 @@ const MainMovie: React.FC = () => {
                 <h1 className="text-5xl font-bold">{movie.title}</h1>
                 <p className="mt-4 text-lg leading-relaxed">{movie.overview}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="text-yellow-400 text-2xl font-semibold">⭐ {Math.round(movie.vote_average)}/10</span>
+                  <span className="text-yellow-400 text-2xl font-semibold">⭐ {movie.vote_average.toFixed(1)}/10</span>
                 </div>
                 <div className="flex flex-row gap-8">
                     <Button className="mt-6 w-36 px-6 py-3 bg-purple-600 hover:cursor-pointer hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-500">
