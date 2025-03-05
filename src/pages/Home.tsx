@@ -9,6 +9,7 @@ const Home = () => {
         <CategoryList categoryName="Horror" />
         <CategoryList categoryName="Comedy" />
         <CategoryList categoryName="Family" />
+        <CategoryList categoryName="Action" />
       </article>
     </section>
   )
