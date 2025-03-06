@@ -4,11 +4,14 @@ import { Input } from "./ui/input";
 import { useNavigate, Link } from "react-router-dom";
 
 const Header = () => {
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const navigate = useNavigate();
+  
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
