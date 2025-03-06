@@ -1,16 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import MovieDetails from "./pages/MovieDetails";
-import UpcomingMovies from "./pages/UpcomingMovies";
+import { Suspense, lazy } from "react";
 import Header from "./components/Header";
-import BrowseMovies from "./pages/BrowseMovies";
-import Search from "./pages/Search";
+
+const Home = lazy(() => import("./pages/Home"));
+const BrowseMovies = lazy(() => import("./pages/BrowseMovies"));
+const MovieDetails = lazy(() => import("./pages/MovieDetails"));
+const UpcomingMovies = lazy(() => import("./pages/UpcomingMovies"));
+const Search = lazy(() => import("./pages/Search"));
 
 function App() {
   return (
     <Router>
       <div className="w-full min-h-screen bg-[#0B0D0D] text-[#e3eaeb] font-sans">
         <Header />
+        <Suspense>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/browse-movies" element={<BrowseMovies />} />
@@ -18,8 +21,9 @@ function App() {
             <Route path="/upcoming" element={<UpcomingMovies />} />
             <Route path="/search" element={<Search />} />
           </Routes>
-        </div>
-      </Router>
+        </Suspense>
+      </div>
+    </Router>
   );
 }
 

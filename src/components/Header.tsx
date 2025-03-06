@@ -107,7 +107,7 @@ const Header = () => {
               <Input
                 type="text"
                 placeholder="Search movie..."
-                className="w-full pl-10 text-[#e3eaeb] bg-zinc-900 border-0 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
+                className="w-full h-[20px] pl-10 text-[#e3eaeb] bg-zinc-900 border-0 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
                 autoFocus
                 value={query}
                 onChange={handleSearchChange}
