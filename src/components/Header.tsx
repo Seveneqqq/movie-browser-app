@@ -1,29 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Menu, X } from "lucide-react";
 import { Input } from "./ui/input";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const Header = () => {
-
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
-  
-  
+  const location = useLocation();
+  const previousPathRef = useRef("");
 
   useEffect(() => {
+    if (!location.pathname.includes('/search')) {
+      previousPathRef.current = location.pathname + location.search;
+    }
+  }, [location]);
+  
+  useEffect(() => {
     const timer = setTimeout(() => {
+
       if (debouncedQuery) {
+
+        if (!isSearching) {
+          setIsSearching(true);
+        }
+
         navigate(`/search?q=${debouncedQuery}`);
-      } else {
-        navigate("/");
+
+      } else if (isSearching) {
+
+        setIsSearching(false);
+        if (location.pathname.includes('/search')) {
+          navigate(previousPathRef.current || '/');
+        }
+
       }
+      
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [debouncedQuery]);
+  }, [debouncedQuery, navigate, isSearching, location.pathname]);
 
   useEffect(() => {
     setDebouncedQuery(query);
@@ -31,6 +50,11 @@ const Header = () => {
 
   const toggleSearch = () => {
     setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      previousPathRef.current = location.pathname + location.search;
+    } else {
+      setQuery("");
+    }
   };
 
   const toggleMobileMenu = () => {
@@ -43,6 +67,7 @@ const Header = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query) {
+      setIsSearching(true);
       navigate(`/search?q=${query}`);
     }
   };
