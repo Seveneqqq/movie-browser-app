@@ -2,6 +2,7 @@ import MainMovie from "@/components/home-page/MainMovie"
 import CategoryList from "@/components/home-page/CategoryList"
 
 const Home = () => {
+  
   return (
     <section>
       <MainMovie/>
