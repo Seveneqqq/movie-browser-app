@@ -6,6 +6,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useNavigate } from 'react-router-dom';
 
 interface CategoryListProps {
   categoryName: string;
@@ -24,6 +25,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [hoveredMovie, setHoveredMovie] = useState<any | null>(null);
+  const navigate = useNavigate();
 
   const loadMovies = async () => {
     try {
@@ -73,7 +75,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
         >
           <CarouselContent className='md:ml-20 ml-0 gap-1'>
             {movies.map((movie: MovieData) => (
-              <CarouselItem key={movie.id} className="md:basis-1/5 basis-1/3 lg:basis-1/5">
+              <CarouselItem key={movie.id} onClick={()=>{navigate(`/movie/${movie.id}/details`)}} className="md:basis-1/5 basis-1/3 lg:basis-1/5">
                 <div
                   className="relative group cursor-pointer"
                   onMouseEnter={() => setHoveredMovie(movie)}
@@ -85,10 +87,10 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
                       alt={movie.title}
                       className="w-full xl:h-[523px] h-full object-cover transition-transform transform group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity opacity-0 group-hover:opacity-100"></div>
+                    <div className="absolute xl:flex inset-0 bg-black bg-opacity-30 hidden transition-opacity opacity-0 group-hover:opacity-100"></div>
 
                     {hoveredMovie?.id === movie.id && (
-                      <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute hidden inset-0 xl:flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <h3 className="text-xl font-semibold">{movie.title}</h3>
                         <p className="my-2 text-sm">{movie.overview}</p>
                         <div className="flex justify-between items-center w-full px-4">
@@ -106,7 +108,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
           </CarouselContent>
         </Carousel>
       ) : (
-        <p>Brak filmów do wyświetlenia.</p>
+        <p>No data to display.</p>
       )}
     </div>
   );

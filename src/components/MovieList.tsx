@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 
 import { ChevronsUpDown } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 interface MovieData {
   title: string;
@@ -54,11 +55,13 @@ const GENRE_MAP: { [key: number]: string } = {
 };
 
 const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
+
   const [hoveredMovie, setHoveredMovie] = useState<MovieData | null>(null);
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [ratingFilter, setRatingFilter] = useState<number[]>([0, 10]);
   const [resetKey, setResetKey] = useState<number>(0); 
+  const navigate = useNavigate();
 
   const uniqueYears = [...new Set(
     movies.map(movie => 
@@ -159,7 +162,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, filters = false }) => {
       ) : (
         <div className='grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
           {filteredMovies.map((movie: MovieData) => (
-            <div key={movie.id} className="w-full aspect-[2/3]">
+            <div key={movie.id} className="w-full aspect-[2/3]" onClick={()=>{navigate(`/movie/${movie?.id}/details`)}}>
               <div
                 className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg h-full"
                 onMouseEnter={() => setHoveredMovie(movie)}
