@@ -14,31 +14,26 @@ const Header = () => {
   const previousPathRef = useRef("");
 
   useEffect(() => {
-    if (!location.pathname.includes('/search')) {
+    if (!location.pathname.includes('/search') && !location.pathname.includes('/movie/')) {
       previousPathRef.current = location.pathname + location.search;
     }
   }, [location]);
   
   useEffect(() => {
     const timer = setTimeout(() => {
-
       if (debouncedQuery) {
-
         if (!isSearching) {
           setIsSearching(true);
         }
-
-        navigate(`/search?q=${debouncedQuery}`);
-
+        if (!location.pathname.includes('/movie/')) {
+          navigate(`/search?q=${debouncedQuery}`);
+        }
       } else if (isSearching) {
-
         setIsSearching(false);
-        if (location.pathname.includes('/search')) {
+        if (location.pathname.includes('/search') && !location.pathname.includes('/movie/')) {
           navigate(previousPathRef.current || '/');
         }
-
       }
-      
     }, 500);
 
     return () => clearTimeout(timer);
@@ -51,7 +46,9 @@ const Header = () => {
   const toggleSearch = () => {
     setIsExpanded(!isExpanded);
     if (!isExpanded) {
-      previousPathRef.current = location.pathname + location.search;
+      if (!location.pathname.includes('/search') && !location.pathname.includes('/movie/')) {
+        previousPathRef.current = location.pathname + location.search;
+      }
     } else {
       setQuery("");
     }

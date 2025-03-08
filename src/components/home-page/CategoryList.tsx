@@ -6,6 +6,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useNavigate } from 'react-router-dom';
 
 interface CategoryListProps {
   categoryName: string;
@@ -24,6 +25,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [hoveredMovie, setHoveredMovie] = useState<any | null>(null);
+  const navigate = useNavigate();
 
   const loadMovies = async () => {
     try {
@@ -73,7 +75,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
         >
           <CarouselContent className='md:ml-20 ml-0 gap-1'>
             {movies.map((movie: MovieData) => (
-              <CarouselItem key={movie.id} className="md:basis-1/5 basis-1/3 lg:basis-1/5">
+              <CarouselItem key={movie.id} onClick={()=>{navigate(`/movie/${movie.id}/details`)}} className="md:basis-1/5 basis-1/3 lg:basis-1/5">
                 <div
                   className="relative group cursor-pointer"
                   onMouseEnter={() => setHoveredMovie(movie)}
@@ -106,7 +108,7 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
           </CarouselContent>
         </Carousel>
       ) : (
-        <p>Brak filmów do wyświetlenia.</p>
+        <p>No data to display.</p>
       )}
     </div>
   );

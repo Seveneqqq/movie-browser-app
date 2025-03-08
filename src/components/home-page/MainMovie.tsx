@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import getMainMovie from "@/api/getMainMovie";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
+import { useNavigate } from "react-router-dom";
 
 interface MovieData {
   title: string;
@@ -12,8 +13,10 @@ interface MovieData {
 }
 
 const MainMovie: React.FC = () => {
+
   const [movie, setMovie] = useState<MovieData | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -21,7 +24,7 @@ const MainMovie: React.FC = () => {
         const fetchedMovie = await getMainMovie();
         setMovie(fetchedMovie);
       } catch (error) {
-        console.error("Błąd pobierania filmu:", error);
+        console.error("Error while fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -31,7 +34,7 @@ const MainMovie: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[88vh]">
+    <div onClick={()=>{navigate(`/movie/${movie?.id}/details`)}} className="relative w-full h-[88vh]">
       {loading || !movie ? (
         <div className="absolute inset-0 flex flex-col justify-center items-start p-10 max-w-[600px]">
           <Skeleton className="h-12 w-64 mb-4" />
