@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import getMainMovie from "@/api/getMainMovie";
 import { Button } from "../ui/button";
-import { Skeleton } from "../ui/skeleton";
+import { LoaderCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface MovieData {
@@ -36,13 +36,11 @@ const MainMovie: React.FC = () => {
   return (
     <div onClick={()=>{navigate(`/movie/${movie?.id}/details`)}} className="relative w-full h-[88vh]">
       {loading || !movie ? (
-        <div className="absolute inset-0 flex flex-col justify-center items-start p-10 max-w-[600px]">
-          <Skeleton className="h-12 w-64 mb-4" />
-          <Skeleton className="h-6 w-full mb-2" />
-          <Skeleton className="h-6 w-3/4 mb-2" />
-          <Skeleton className="h-6 w-2/3 mb-6" />
-          <Skeleton className="h-8 w-36" />
+        <div className="fixed inset-0 flex justify-center items-center">
+        <div className="animate-spin">
+          <LoaderCircle size={128} />
         </div>
+      </div>
       ) : (
         <>
           <div
