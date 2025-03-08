@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface CastMember {
   id: number;
   name: string;
