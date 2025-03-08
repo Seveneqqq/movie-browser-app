@@ -87,10 +87,10 @@ const CategoryList = ({ categoryName }: CategoryListProps) => {
                       alt={movie.title}
                       className="w-full xl:h-[523px] h-full object-cover transition-transform transform group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity opacity-0 group-hover:opacity-100"></div>
+                    <div className="absolute xl:flex inset-0 bg-black bg-opacity-30 hidden transition-opacity opacity-0 group-hover:opacity-100"></div>
 
                     {hoveredMovie?.id === movie.id && (
-                      <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute hidden inset-0 xl:flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <h3 className="text-xl font-semibold">{movie.title}</h3>
                         <p className="my-2 text-sm">{movie.overview}</p>
                         <div className="flex justify-between items-center w-full px-4">

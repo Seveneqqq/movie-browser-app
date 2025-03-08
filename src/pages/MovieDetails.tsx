@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react';
 import Cast from '@/components/movie-details-page/Cast';
 import Videos from '@/components/movie-details-page/Videos';
 import SimiliarMovies from '@/components/movie-details-page/SimiliarMovies';
+import { LoaderCircle } from 'lucide-react';
 
 interface CastMember {
   id: number;
@@ -81,7 +82,13 @@ const MovieDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading movie details...</div>;
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <div className="animate-spin">
+          <LoaderCircle size={128} />
+        </div>
+      </div>
+    );
   }
 
   if (error || !movie) {
@@ -101,7 +108,7 @@ const MovieDetails = () => {
           <div className="flex items-center gap-2">
             <span className="text-yellow-400 text-2xl font-semibold">⭐ {movie.vote_average.toFixed(1)}/10</span>
           </div>
-          <Badge className="text-xl bg-slate-700" variant="secondary">{movie.release_date}</Badge>
+            <Badge className="text-xl bg-slate-700" variant="secondary">Release date : {movie.release_date}</Badge>
           </div>
           
         </div>
@@ -110,9 +117,24 @@ const MovieDetails = () => {
       <div className="bg-[#0B0D0D] flex justify-center w-full pt-2 pb-8">
         <Tabs defaultValue="details" className="w-full flex flex-col items-center">
           <TabsList className="flex justify-center gap-4 bg-[#1a1d1d] p-4 rounded-lg">
-            <TabsTrigger className="text-xl" value="details">Details</TabsTrigger>
-            <TabsTrigger className="text-xl" value="cast">Cast</TabsTrigger>
-            <TabsTrigger className="text-xl" value="movies">Similar</TabsTrigger>
+            <TabsTrigger 
+              className="text-xl data-[state=active]:text-white hover:cursor-pointer text-gray-500 data-[state=active]:font-medium transition-all duration-300" 
+              value="details"
+            >
+              Details
+            </TabsTrigger>
+            <TabsTrigger 
+              className="text-xl data-[state=active]:text-white hover:cursor-pointer text-gray-500 data-[state=active]:font-medium transition-all duration-300" 
+              value="cast"
+            >
+              Cast
+            </TabsTrigger>
+            <TabsTrigger 
+              className="text-xl data-[state=active]:text-white hover:cursor-pointer text-gray-500 data-[state=active]:font-medium transition-all duration-300" 
+              value="movies"
+            >
+              Similar
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="details" className="p-4 text-white w-full">
