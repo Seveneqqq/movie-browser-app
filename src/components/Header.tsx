@@ -14,7 +14,7 @@ const Header = () => {
   const previousPathRef = useRef("");
 
   useEffect(() => {
-    if (!location.pathname.includes('/search') && !location.pathname.includes('/movie/')) {
+    if (!location.pathname.includes('/search') && !location.pathname.includes('/movie/') && !location.pathname.includes('/upcoming') && !location.pathname.includes('/browse-movies')) {
       previousPathRef.current = location.pathname + location.search;
     }
   }, [location]);
@@ -30,7 +30,7 @@ const Header = () => {
         }
       } else if (isSearching) {
         setIsSearching(false);
-        if (location.pathname.includes('/search') && !location.pathname.includes('/movie/')) {
+        if (location.pathname.includes('/search') && !location.pathname.includes('/movie/') && !location.pathname.includes('/upcoming') && !location.pathname.includes('/browse-movies')) {
           navigate(previousPathRef.current || '/');
         }
       }
@@ -71,6 +71,9 @@ const Header = () => {
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
+    setQuery("");
+    setDebouncedQuery("");
+    setIsSearching(false);
   };
 
   return (
@@ -89,6 +92,7 @@ const Header = () => {
             <li className="relative group">
               <Link
                 to="/"
+                onClick={handleLinkClick}
                 className="hover:text-sky-300 transition duration-500 relative 
                 after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-full 
                 after:h-[2px] after:bg-sky-300 after:scale-x-0 after:transition-transform 
@@ -100,6 +104,7 @@ const Header = () => {
             <li className="relative group">
               <Link
                 to="/browse-movies"
+                onClick={handleLinkClick}
                 className="hover:text-sky-300 transition duration-500 relative 
                 after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-full 
                 after:h-[2px] after:bg-sky-300 after:scale-x-0 after:transition-transform 
@@ -111,6 +116,7 @@ const Header = () => {
             <li className="relative group">
               <Link
                 to="/upcoming"
+                onClick={handleLinkClick}
                 className="hover:text-sky-300 transition duration-500 relative 
                 after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-full 
                 after:h-[2px] after:bg-sky-300 after:scale-x-0 after:transition-transform 
