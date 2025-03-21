@@ -1,3 +1,5 @@
+## 🔗 Links
+[https://browse-movies-app.vercel.app/](https://browse-movies-app.vercel.app/)
 
 ## Instalation
 
@@ -45,9 +47,4 @@ npm run dev
 
 https://developer.themoviedb.org/reference/intro/getting-started
 
-
-
-
-## 🔗 Links
-[https://browse-movies-app.vercel.app/](https://browse-movies-app.vercel.app/)
 
