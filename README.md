@@ -4,9 +4,9 @@
 To install this project run
 
 ```bash
-git clone https://github.com/Seveneqqq/zadanie-rekrutacyjne-hurtopony.git
+git clone https://github.com/Seveneqqq/movie-browser-app.git
 
-cd zadanie-rekrutacyjne-hurtopony
+cd movie-browser-app
 
 npm install
 
