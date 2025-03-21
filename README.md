@@ -49,5 +49,5 @@ https://developer.themoviedb.org/reference/intro/getting-started
 
 
 ## 🔗 Links
-https://zadanie-rekrutacyjne-hurtopony.vercel.app/
+[https://zadanie-rekrutacyjne-hurtopony.vercel.app/](https://browse-movies-app.vercel.app/)
 
